@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block tilte %}{% if form.instance.id %}Update category{% else %}Add category{% endif %}{% endblock %}
+
+{% block breadcrumbs %}
+    {% if form.instance.id %}
+
+        {{ block.super }}
+        {% breadcrumb "Category" "category" category.slug category.id %}
+        {% breadcrumb "Update" "category-update" category.id %}
+
+    {% else %}
+
+        {{ block.super }}
+        {% breadcrumb "Add category" "category-add" %}
+
+
+    {% endif %}
+{% endblock breadcrumbs %}
+
+
+{% block container %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Save category</button>
+  </form>
+
+{% endblock container %}

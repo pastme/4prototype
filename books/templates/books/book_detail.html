@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Book info{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Book info" "book" book.slug book.id %}
+{% endblock %}
+
+
+{% block container %}
+
+    <h2>{{ book.name }}</h2>
+    <p>{{ book.description }}</p>
+    <p>{{ book.isbn }}</p>
+    <h5>Book categories:</h5>
+        {% for category in book.categories.all %}
+            <p>{{ category.name }}</p>
+        {% endfor %}
+
+    <a href="{% url 'book-update' book.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'book-delete' book.id %}" class="btn btn-danger">Delete</a>
+
+{% endblock container %}

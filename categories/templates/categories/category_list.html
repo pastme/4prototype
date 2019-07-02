@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}All categories{% endblock %}
+
+{% block container %}
+<div class="container">
+<a href="{% url 'book-add' %}" class="btn btn-success">Add Book</a>
+    <a href="{% url 'category-add' %}" class="btn btn-success">Add Category</a>
+    <h1>Categories</h1>
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="list-group">
+                {% for category in object_list %}
+                <li class="list-group-item">
+                <h3>
+                    <a href="{% url 'category' category.slug category.id %}">
+                        {{ category.name }}
+                    </a>
+                </h3>
+                    <ul class="list-group inner">
+                        <h4>Books:</h4>
+                        {% for book in category.get_all_books %}
+                        <li class="list-group-item">
+                            <a href="{% url 'book' book.slug book.id %}">
+                            {{ book.name}}
+            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% if is_paginated %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+
+{% endblock container %}

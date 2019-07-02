@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block tilte %}{% if form.instance.id %}Update book{% else %}Add book{% endif %}{% endblock %}
+
+{% block breadcrumbs %}
+    {% if form.instance.id %}
+        {{ block.super }}
+        {% breadcrumb "Book info" "book" book.slug book.id %}
+        {% breadcrumb "Update book" "book-update" book.id %}
+
+    {% else %}
+        {{ block.super }}
+        {% breadcrumb "Add book" "book-add" %}
+
+
+    {% endif %}
+{% endblock breadcrumbs %}
+
+
+{% block container %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Save book</button>
+  </form>
+
+{% endblock container %}

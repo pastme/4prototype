@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}Delete Book{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Book info" "book" book.slug book.id %}
+    {% breadcrumb "Delete book" "book-delete" book.id %}
+{% endblock %}
+
+{% block container %}
+    <h3>Delete book {{ book.name }}?</h3>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-danger">Yes</button>
+  </form>
+
+{% endblock container %}

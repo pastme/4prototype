@@ -1,0 +1,4 @@
+{% for url, label in breadcrumbs %}
+    <a class="navbar-brand" href={{ url }}>{{ label|safe }}{% if not forloop.last %}/{% endif %}
+    </a>
+{% endfor %}
