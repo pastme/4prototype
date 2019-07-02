@@ -6,7 +6,7 @@
 
 {% block breadcrumbs %}
     {{ block.super }}
-    {% breadcrumb "Book info" "book" book.slug book.id %}
+    {% breadcrumb "Book info" "book" book.slug book.pk %}
 {% endblock %}
 
 
@@ -20,7 +20,7 @@
             <p>{{ category.name }}</p>
         {% endfor %}
 
-    <a href="{% url 'book-update' book.id %}" class="btn btn-primary">Edit</a>
-    <a href="{% url 'book-delete' book.id %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'book-update' book.pk %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'book-delete' book.pk %}" class="btn btn-danger">Delete</a>
 
 {% endblock container %}

@@ -2,13 +2,13 @@
 {% load crispy_forms_tags %}
 {% load django_bootstrap_breadcrumbs %}
 
-{% block tilte %}{% if form.instance.id %}Update book{% else %}Add book{% endif %}{% endblock %}
+{% block tilte %}{% if form.instance.pk %}Update book{% else %}Add book{% endif %}{% endblock %}
 
 {% block breadcrumbs %}
-    {% if form.instance.id %}
+    {% if form.instance.pk %}
         {{ block.super }}
-        {% breadcrumb "Book info" "book" book.slug book.id %}
-        {% breadcrumb "Update book" "book-update" book.id %}
+        {% breadcrumb "Book info" "book" book.slug book.pk %}
+        {% breadcrumb "Update book" "book-update" book.pk %}
 
     {% else %}
         {{ block.super }}

@@ -6,8 +6,8 @@
 
 {% block breadcrumbs %}
     {{ block.super }}
-    {% breadcrumb "Book info" "book" book.slug book.id %}
-    {% breadcrumb "Delete book" "book-delete" book.id %}
+    {% breadcrumb "Book info" "book" book.slug book.pk %}
+    {% breadcrumb "Delete book" "book-delete" book.pk %}
 {% endblock %}
 
 {% block container %}

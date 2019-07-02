@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 from books.models import Book
 
 class Category(models.Model):
@@ -12,15 +13,18 @@ class Category(models.Model):
         verbose_name_plural = "categories"
 
     def clean(self):
-        if self.parent.parent:
+        if self.parent and self.parent.parent:
             raise ValidationError(
                 'Only subcategories of second level allowed. You can not create subcategory of subcategory'
             )
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'slug': self.slug, 'pk': self.pk})
 
     def __str__(self):
        return self.name
 
     def get_all_books(self):
-        in_categories = list(self.subcategories.all().values_list('id', flat=True))
-        in_categories.append(self.id)
+        in_categories = list(self.subcategories.all().values_list('pk', flat=True))
+        in_categories.append(self.pk)
         return Book.objects.filter(categories__in=in_categories)

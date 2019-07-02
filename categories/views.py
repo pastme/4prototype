@@ -28,4 +28,5 @@ class CategoryList(ListView):
     queryset = Category.objects.filter(parent__isnull=True)
 
 class CategoryDetailView(DetailView):
+    query_pk_and_slug = True
     queryset = Category.objects.all()
